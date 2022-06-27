@@ -21,9 +21,9 @@ Note: I am preparing Working instruction tutorials, and will link here when prep
 
 ---
 
-## 1. Perchange
+## **1. Perchange**
 
-![gif img](material/perchange/working.gif)
+![gif img](material/perchange/meth.gif)
 
 In ArcGIS pro, there is no specific tool to evaluate percent change for pre and post rasters (for non catagorical rasters only). Furthmore, when rasters have different range of data it is much difficult to evaluate percent change. All this can be solved using multiple raster calculator tools but what if we have to repeat the same task 100-200 times?
 
@@ -33,15 +33,17 @@ Keeping in mind this problem, I developed this short tool which works on the fol
 
 Thus it will take non-catagorical rasters as input (pre and post) and will give output as percent change.
 
-- Python Script of PerChange tool: [PerChange.py](main/perchange/perchange_script.py)
+- ArcPy Script of PerChange tool: [PerChange_Script.py](main/perchange/perchange_script.py)
 
-- ArcGIS Pro Model for PerChange: [PerChange.pyt](main/perchange/perchange_model.py)
+- ArcGIS Pro Model for PerChange: [PerChange_Model.py](main/perchange/perchange_model.py)
 
+- ArcPy Jupyter Notebook for PerChange: [PerChange_Notebook.py](main/perchange/perchange_notebook.ipynb)
 ### Tool Specific Instructions
 
 - Input pre and post rasters as non catagorical rasters only (not land use rasters)
-- Define GeoDataBase & Workspace location
-- Define variable, country, and year's name (only if you are using py script)
+- No need to define GeoDataBase & Workspace location
+- Define variable, country, and year's name (only if you are using py ir ipynb script)
+- Use Jupyter Notebook if you want to automate this task to all countries at once.
 
 ---
 
