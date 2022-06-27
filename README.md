@@ -23,7 +23,7 @@ Note: I am preparing Working instruction tutorials, and will link here when prep
 
 ## 1. Perchange
 
-![gif img](material\perchange\working.gif)
+![gif img](material/perchange/working.gif)
 
 In ArcGIS pro, there is no specific tool to evaluate percent change for pre and post rasters (for non catagorical rasters only). Furthmore, when rasters have different range of data it is much difficult to evaluate percent change. All this can be solved using multiple raster calculator tools but what if we have to repeat the same task 100-200 times?
 
