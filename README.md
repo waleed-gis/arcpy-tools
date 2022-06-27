@@ -2,7 +2,7 @@
 
 ## Hi, Welcome to this repo
 
-    Here you will find various arcpy based geoprocessing tools. The main purpose of designing these tools is to help in processing complex and multiple analysis in a single go.
+Here you will find various arcpy based geoprocessing tools. The main purpose of designing these tools is to help in processing complex and multiple analysis in a single go.
 
 
 ## General  Instructions:
@@ -31,8 +31,9 @@ Keeping in mind this problem, I developed this short tool which works on the fol
 
 Thus it will take non-catagorical rasters as input (pre and post) and will give output as percent change.
 
-### Python Script of PerChange tool: [PerChange.py](main/perchange/perchange_script.py)
-### ArcGIS Pro Model for PerChange: [PerChange.pyt](main/perchange/perchange_model.py)
+- Python Script of PerChange tool: [PerChange.py](main/perchange/perchange_script.py)
+
+- ArcGIS Pro Model for PerChange: [PerChange.pyt](main/perchange/perchange_model.py)
 
 ### Tool Specific Instructions:
 - Input pre and post rasters as non catagorical rasters only (not land use rasters)
