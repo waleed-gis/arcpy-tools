@@ -1,51 +1,42 @@
 # importing modules
 import arcpy
 from arcpy import env
-from arcpy.sa import *
-from arcpy.ia import *
-from arcpy.sa import *
-from arcpy.sa import *
 from sys import argv
-from pyrsistent import s
 
+
+# adding timestamp for addMessage() replacement
 def timestamp(message): # This is meant to replace print() or arcpy.AddMessage() in the script when I want to add messages.  It timestamps the messages so I can monitor performance of different stages in script.
     now = datetime.datetime.now()
     print(now.strftime("%H:%M:%S") + " - " + message)
 
 timestamp("Modules loaded. Starting geoprocessing")
-# inputs
 
+# inputs
+# country, variable names ara meant to defne resulting perchange raster names in proper manner. This is helpful if you are working on multiple rasters
 country = 'BLZ'
 variable = 'NDVI'
 pre_year = '2000'
 post_year = '2020'
 r_ext = '.tif'
 
+#input loc
+pre_raster_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\pre\\"
+post_raster_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\post\\"
+
+# Export Output
+export_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\final_export\\cd\\"
+temp_loc = "in_memory\\"
+
 # -----------------------------------------------------------
 pre_r = country + '_' + variable + '_' + pre_year + r_ext
 post_r = country + '_' + variable + '_' + post_year + r_ext
 
-# Locations 
-pre_raster_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\pre\\"
-post_raster_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\post\\"
-
 pre_raster = pre_raster_loc + pre_r
 post_raster = post_raster_loc + post_r
 
-# Export Output
-export_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\final_export\\"
-temp_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\final_export\\temp\\"
-# workspace loc
-ws_loc = "D:\Work\Fiverr\Fieverr_IncomePoverty\change_detection\ChangeDet_EnvVar\ChangeDet_EnvVar.gdb"
-
-# Workspace declare
-env.workspace = ws_loc  
 arcpy.env.overwriteOutput = False
-
-# Check out any necessary licenses.
-arcpy.CheckOutExtension("spatial")
-arcpy.CheckOutExtension("ImageAnalyst")
 timestamp('Input output initialized successfully...')
+
 """
 PRE RASTER Normalization
 """
@@ -68,12 +59,15 @@ post_normalized_loc = temp_loc + post_normalized_name + r_ext
 post_normalized = (post_stat_raster - post_stat_raster.minimum) / (post_stat_raster.maximum - post_stat_raster.minimum)
 post_normalized.save(post_normalized_loc)
 timestamp('Pre and post normalization done...')
+
 """
 Percentage Change Analysis
 """
-perchange_loc = export_loc + post_r[0:8] + '_cd' + r_ext
+perchange_name = post_r[0:8] + '_cd' + r_ext
+perchange_loc = export_loc + perchange_name
 perchange = ((post_normalized -  pre_normalized ) / ( pre_normalized )) * 100
 perchange.save(perchange_loc)
 timestamp('percent change done...')
-timestamp('---COMPLETED---')
+timestamp('---------COMPLETED - ({})---------'.format(perchange_name))
 
+#------------------- Script END --------------------------
