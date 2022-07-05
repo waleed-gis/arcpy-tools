@@ -2,6 +2,16 @@
 import arcpy
 from arcpy import env
 from sys import argv
+from arcpy.sa import *
+
+try:
+    if arcpy.CheckExtension("Spatial") == "Available":
+        arcpy.CheckOutExtension("Spatial")
+        print ("Checked out \"Spatial\" Extension")
+    else:
+        raise LicenseError
+except LicenseError:
+    print("Spatial Analyst license is unavailable")
 
 
 # adding timestamp for addMessage() replacement
@@ -13,7 +23,7 @@ timestamp("Modules loaded. Starting geoprocessing")
 
 # inputs
 # country, variable names ara meant to defne resulting perchange raster names in proper manner. This is helpful if you are working on multiple rasters
-country = 'BLZ'
+country = 'MEX'
 variable = 'NDVI'
 pre_year = '2000'
 post_year = '2020'
@@ -24,8 +34,10 @@ pre_raster_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\pre
 post_raster_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\post\\"
 
 # Export Output
-export_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\final_export\\cd\\"
-temp_loc = "in_memory\\"
+export_loc = "D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\final_export\\"
+temp_loc = 'in_memory\\' 
+#"D:\\Work\\Fiverr\\Fieverr_IncomePoverty\\change_detection\\final_export\\temp\\"
+
 
 # -----------------------------------------------------------
 pre_r = country + '_' + variable + '_' + pre_year + r_ext
@@ -34,7 +46,7 @@ post_r = country + '_' + variable + '_' + post_year + r_ext
 pre_raster = pre_raster_loc + pre_r
 post_raster = post_raster_loc + post_r
 
-arcpy.env.overwriteOutput = False
+arcpy.env.overwriteOutput = True
 timestamp('Input output initialized successfully...')
 
 """
@@ -66,8 +78,21 @@ Percentage Change Analysis
 perchange_name = post_r[0:8] + '_cd' + r_ext
 perchange_loc = export_loc + perchange_name
 perchange = ((post_normalized -  pre_normalized ) / ( pre_normalized )) * 100
-perchange.save(perchange_loc)
+temp_perchange_loc = temp_loc + 'temp_' + perchange_name
+perchange.save(temp_perchange_loc)
 timestamp('percent change done...')
+
+"""
+ Removing values greater then 1000 (converting them to 0)
+
+"""
+arcpy.CheckOutExtension("Spatial")
+inRaster = Raster(temp_perchange_loc)
+modified_perchange = Con(inRaster >= 1000, 0, inRaster)
+modified_perchange.save(perchange_loc)
+#modified_perchange.save(perchange_loc)
+timestamp('Removing >1000 values done...')
+
 timestamp('---------COMPLETED - ({})---------'.format(perchange_name))
 
 #------------------- Script END --------------------------
