@@ -13,6 +13,8 @@ Here you will find various arcpy based geoprocessing tools. The main purpose of 
 
 - To run model in ArcGIS Pro, in catalog add new folder connection. Then navigate to that folder in which you saved any tool with pyt extension. Open it, or with click on edit. On edit option, model builder will load up.
 
+- ArcGIS Pro extention "Spatial Analyst" is requried for last step "Masking values greater then 1000"
+
 Note: I am preparing Working instruction tutorials, and will link here when prepared. In case you need them earlier just email me.
 
 ## Current Projects:
@@ -35,9 +37,9 @@ Thus it will take non-catagorical rasters as input (pre and post) and will give 
 
 - ArcPy Script of PerChange tool: [PerChange_Script.py](main/perchange/perchange_script.py)
 
-- ArcGIS Pro Model for PerChange: [PerChange_Model.py](main/perchange/perchange_model.py)
+- ArcGIS Pro Model for PerChange: [PerChange_Model](main/perchange/perchange_model.py)
 
-- ArcPy Jupyter Notebook for PerChange: [PerChange_Notebook.py](main/perchange/perchange_notebook.ipynb)
+- ArcPy Jupyter Notebook for PerChange: [PerChange_Notebook.ipynb](main/perchange/perchange_notebook.ipynb)
 ### Tool Specific Instructions
 
 - Input pre and post rasters as non catagorical rasters only (not land use rasters)
